@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="author" content="Obinna Amechi">
+    <meta name="email" content="amec0001@algonquinlive.com">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form id="registrationForm">
+        <label for="realName">Real Name:</label><br>
+        <input type="text" id="realName" name="realName" required><br>
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" pattern="[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+" required><br>
+        <label for="address">Mailing Address:</label><br>
+        <input type="text" id="address" name="address"><br>
+        <fieldset>
+            <legend>Who referred you?</legend>
+            <input type="radio" id="socialMedia" name="referral" value="Social Media">
+            <label for="socialMedia">Social Media</label><br>
+            <input type="radio" id="advertising" name="referral" value="Advertising">
+            <label for="advertising">Advertising</label><br>
+            <input type="radio" id="wordOfMouth" name="referral" value="Word of Mouth">
+            <label for="wordOfMouth">Word of Mouth</label><br>
+            <input type="radio" id="internetSearch" name="referral" value="Internet Search">
+            <label for="internetSearch">Internet Search</label><br>
+            <input type="radio" id="other" name="referral" value="Other">
+            <label for="other">Other</label><br>
+            <input type="text" id="otherText" name="otherText" class="hidden">
+        </fieldset>
+        <button type="submit">Register</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            // Prevent form submission for demonstration
+            event.preventDefault();
+            alert("Form submitted!");
+        });
+
+        document.querySelectorAll('input[name="referral"]').forEach(input => {
+            input.addEventListener('change', function() {
+                const otherText = document.getElementById('otherText');
+                if (document.getElementById('other').checked) {
+                    otherText.classList.remove('hidden');
+                    otherText.required = true;
+                } else {
+                    otherText.classList.add('hidden');
+                    otherText.required = false;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

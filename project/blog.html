@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .blog-post {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        .blog-post h2 {
+            margin-top: 0;
+        }
+        .blog-post p {
+            margin-bottom: 0;
+        }
+        .post-form {
+            margin-top: 20px;
+        }
+        .post-form input[type="text"],
+        .post-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .post-form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        .post-form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Blog</h1>
+
+        <div class="post-form">
+            <h2>Post a new blog</h2>
+            <form method="post" action="blog.php">
+                <label for="title">Title:</label><br>
+                <input type="text" id="title" name="title" required><br><br>
+                <label for="content">Content:</label><br>
+                <textarea id="content" name="content" rows="4" cols="50" required></textarea><br><br>
+                <input type="submit" name="submit" value="Post Blog">
+            </form>
+        </div>
+
+        <div id="blog-posts">
+            
+        </div>
+
+    <script>
+        // JavaScript code to handle form submission using AJAX
+        document.getElementById('blog-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission behavior
+
+            // Create a new FormData object to collect form data
+            var formData = new FormData(this);
+
+            // Send a POST request to the server with form data using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'blog.php', true);
+            xhr.onload = function() {
+                // Check if the request was successful (status code 200)
+                if (xhr.status === 200) {
+                    // Get the response HTML
+                    var responseHTML = xhr.responseText;
+                    // Update the blog posts section with the received HTML
+                    document.getElementById('blog-posts').innerHTML = responseHTML;
+                    // Clear the form fields
+                    document.getElementById('title').value = '';
+                    document.getElementById('content').value = '';
+                } else {
+                    // Handle error
+                    console.error('Request failed. Status: ' + xhr.status);
+                }
+            };
+            // Send the form data
+            xhr.send(formData);
+        });
+    </script> 
+
+
+   
+    
+
+    </div>
+</body>
+</html>
